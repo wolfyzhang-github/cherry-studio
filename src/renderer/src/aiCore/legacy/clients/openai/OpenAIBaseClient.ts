@@ -116,6 +116,17 @@ export abstract class OpenAIBaseClient<
           }))
           .filter(isSupportedModel)
       }
+      if (this.provider.id === 'copilot') {
+        // GitHub Copilot 的 models 接口不使用 /v1 前缀
+        const baseUrl = 'https://api.githubcopilot.com'
+        const newSdk = sdk.withOptions({ baseURL: baseUrl })
+        const response = await newSdk.models.list()
+        const models = response.data || []
+        models.forEach((model) => {
+          model.id = model.id.trim()
+        })
+        return models.filter(isSupportedModel)
+      }
       const response = await sdk.models.list()
       if (this.provider.id === 'together') {
         // @ts-ignore key is not typed

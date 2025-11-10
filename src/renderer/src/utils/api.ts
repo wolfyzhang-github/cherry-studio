@@ -81,13 +81,14 @@ export function formatApiHost(host?: string, isSupportedAPIVerion: boolean = tru
 
 /**
  * 格式化 Azure OpenAI 的 API 主机地址。
+ * Azure SDK 会自动添加 /openai 路径，所以这里只需要规范化主机地址
  */
 export function formatAzureOpenAIApiHost(host: string): string {
   const normalizedHost = withoutTrailingSlash(host)
     ?.replace(/\/v1$/, '')
     .replace(/\/openai$/, '')
-  // NOTE: AISDK会添加上`v1`
-  return formatApiHost(normalizedHost + '/openai', false)
+  // Azure SDK 会自动添加 /openai 路径，不需要我们手动添加
+  return formatApiHost(normalizedHost, false)
 }
 
 export function formatVertexApiHost(provider: VertexProvider): string {

@@ -270,12 +270,12 @@ describe('api', () => {
   })
 
   describe('formatAzureOpenAIApiHost', () => {
-    it('normalizes trailing segments and disables auto version append', () => {
+    it('normalizes trailing segments without adding /openai (Azure SDK adds it automatically)', () => {
       expect(formatAzureOpenAIApiHost('https://example.openai.azure.com/')).toBe(
-        'https://example.openai.azure.com/openai'
+        'https://example.openai.azure.com'
       )
       expect(formatAzureOpenAIApiHost('https://example.openai.azure.com/openai/')).toBe(
-        'https://example.openai.azure.com/openai'
+        'https://example.openai.azure.com'
       )
     })
   })
