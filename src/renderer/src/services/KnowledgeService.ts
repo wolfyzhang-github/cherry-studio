@@ -49,7 +49,7 @@ export const getKnowledgeBaseParams = (base: KnowledgeBase): KnowledgeBaseParams
   if (isGeminiProvider(actualProvider)) {
     baseURL = baseURL + '/openai'
   } else if (isAzureOpenAIProvider(actualProvider)) {
-    baseURL = baseURL + '/v1'
+    baseURL = baseURL + '/openai/v1'
   }
 
   logger.info(`Knowledge base ${base.name} using baseURL: ${baseURL}`)
